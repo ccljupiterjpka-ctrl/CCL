@@ -21,14 +21,59 @@ position:relative;
 
 header h1{font-size:20px;font-weight:700;white-space:nowrap;}
 
-.nav-links{display:flex;gap:12px;}
+/* .nav-links{display:flex;gap:12px;}
 .nav-links a{
 background:#ffeb3b;color:#000;padding:7px 14px;
 border-radius:20px;text-decoration:none;font-weight:600;font-size:14px;
 gap: 12px;
     margin-left: 40px; 
+} */
+
+    /* ==========================
+   Desktop Navigation
+========================== */
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    white-space:nowrap;
 }
 
+.nav-links a{
+    text-decoration:none;
+    background:#ffe640;
+    color:#000;
+    font-size:15px;
+    font-weight:700;
+
+    padding:14px 20px;
+    border-radius:22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    white-space:nowrap;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    background:#ffc107;
+    transform:translateY(-3px);
+}
+
+/* Hide desktop menu on mobile */
+@media(max-width:768px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .hamburger{
+        display:block;
+    }
+}
 
 
 .hamburger{display:none;font-size:26px;cursor:pointer;}
