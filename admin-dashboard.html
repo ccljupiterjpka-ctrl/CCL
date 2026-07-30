@@ -732,7 +732,7 @@ font-size:20px;
 
 .header{
     height:80px;
-    background:#102840;
+    background:#0A0A0A;
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -746,7 +746,7 @@ font-size:20px;
     margin-top:40px;
     padding:20px;
     text-align:center;
-    background:#102840;
+    background:#111111;
 }
 
 
@@ -801,7 +801,7 @@ font-size:20px;
   <b id="adminNameText"></b>
 
     <small id="adminEmailText">
-        admin@jpboys.com
+        admin@ccl.com
     </small>
 
 </div>
@@ -829,7 +829,7 @@ font-size:20px;
 
     <div>
         <h2>🏏 Admin Dashboard</h2>
-        <p>JP Boys Cricketer's Tournament Management</p>
+        <p>CCL Tournament Management</p>
     </div>
 
 </div>
@@ -882,9 +882,15 @@ font-size:20px;
             📢 Notifications
         </div>
 
-        <div class="statValue">
+        <!-- <div class="statValue">
             Live
-        </div>
+        </div> -->
+
+        <div
+class="statValue"
+id="notificationStatusCard">
+0
+</div>
 
     </div>
 
@@ -1194,22 +1200,6 @@ document.getElementById("resetToggle").onchange = e =>
 document.getElementById("resetToggle").checked =
   localStorage.getItem("playerResetEnabled") === "true";
 
-// window.onload = function(){
-
-//     if(localStorage.getItem("isAdmin") !== "true"){
-//         window.location.href = "admin-login.html";
-//         return;
-//     }
-
-//        document.getElementById("controlBox").style.display = "block";
-//     document.getElementById("profileMenu").style.display="block";
-
-//     loadFlags();
-//     loadAdminProfile();
-//     checkSuperAdmin();
-//     resetSessionTimer();
-
-// }
 
 
 function loadFlags(){
@@ -1356,11 +1346,6 @@ import {
 } from
 "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
 
-// const app = initializeApp({
-//   apiKey: "AIzaSyBdlkwG56G7QJSWR9SI2e1LarOUxWg8lW4",
-//   authDomain: "jp-boys.firebaseapp.com",
-//   projectId: "jp-boys"
-// });
 
 const app = initializeApp({
 apiKey: "AIzaSyDAAMCftPoPr8IeWiR1QIkf_PZbGqqq4YA",
@@ -1489,6 +1474,71 @@ toggleBtn.onclick = async ()=>{
 refreshToggleText();
 
 
+/* Dashboard Status */
+
+const regCard = document.getElementById("registrationStatusCard");
+
+onSnapshot(doc(db,"settings","registration"),(snap)=>{
+
+    let open = true;
+
+    if(snap.exists()){
+        open = snap.data().open !== false;
+    }
+
+    regCard.innerHTML = open ? "OPEN" : "CLOSED";
+    regCard.style.color = open ? "#2ecc71" : "#e74c3c";
+
+    document.getElementById("notifyContent").innerHTML=`
+         Total Registered : <b>${total}</b><br>
+    Latest Player : <b>${latest}</b><br><br>
+
+    <div class="small">
+    Last 5 Registered:<br>
+    ${ lastFive.length
+      ? lastFive.map(p=>"• "+p.name).join("<br>")
+      : "No registrations yet"
+    }
+    </div>
+  `;
+
+  if(initialized){
+    playAlert();
+  }
+
+  initialized=true;
+});
+
+
+const auctionCard=document.getElementById("auctionStatusCard");
+
+onSnapshot(doc(db,"settings","auction"),(snap)=>{
+
+    let live=false;
+
+    if(snap.exists()){
+        live=snap.data().live===true;
+    }
+
+    auctionCard.innerHTML=live?"ON":"OFF";
+
+    auctionCard.style.color=
+        live ? "#2ecc71" : "#ff5555";
+});
+
+
+const notificationCard =
+document.getElementById("notificationStatusCard");
+
+onSnapshot(collection(db,"notifications"),(snap)=>{
+
+    notificationCard.innerHTML=snap.size;
+
+    notificationCard.style.color=
+    snap.size>0
+    ? "#00d4ff"
+    : "#999";
+});
 
 
 /* 🔊 SOUND */
@@ -1520,6 +1570,10 @@ onSnapshot(collection(db,"players"), snap=>{
   players.sort((a,b)=>b.createdAt-a.createdAt);
 
   const total=players.length;
+  
+  // ⭐ Update Total Players Dashboard Card
+document.getElementById("totalPlayersCard").textContent = total;
+
   const latest=players[0]?.name || "None";
   const lastFive=players.slice(0,5);
 
@@ -1542,6 +1596,9 @@ onSnapshot(collection(db,"players"), snap=>{
 
   initialized=true;
 });
+
+
+
 
 
 /* OWNER TOGGLE */
@@ -1738,7 +1795,7 @@ await setDoc(
 
  const organizerDoc = await getCurrentOrganizer();
 
-  console.log("Step 3");
+ 
 
   const organizer = organizerDoc.data();
 
@@ -1899,7 +1956,7 @@ await addDoc(collection(db, "tournaments"), {
 
     seasonNumber: nextSeason,
 
-    tournamentName: "JP Boys Season " + nextSeason,
+    tournamentName: "CCL " + nextSeason,
 
     status: "Active",
 

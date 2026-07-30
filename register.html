@@ -18,8 +18,17 @@ body{
 }
 
 /* HEADER + FOOTER */
-header,footer{
-  background:linear-gradient(90deg,#1e3c72,#2a5298);
+header{
+  background:linear-gradient(90deg,#0A0A0A);
+  padding:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-weight:bold;
+}
+
+footer{
+  background:linear-gradient(90deg,#111111);
   padding:14px;
   display:flex;
   justify-content:space-between;
@@ -334,7 +343,7 @@ Player's Must Complete The Registration Process & Upload the Profile Photo & Pay
 
 <label>Pay the Registration Fee Rs.800 Only</label>
 <br>
-<label>Pay Using UPI ID : 8197901199@ybl <br>or</br> Use Below Scanner</label>
+<label>Pay Using UPI ID : 9880361653@ybl <br>or</br> Use Below Scanner</label>
 
 
 <div class="qr-box">
@@ -601,7 +610,7 @@ regForm.addEventListener("submit",async(e)=>{
 const snapshot = await getDocs(collection(db,"players"));
 const count = snapshot.size + 1;
 
-const playerId = "JP-Boy's" + String(count).padStart(3,'0');
+const playerId = "CCL" + String(count).padStart(3,'0');
 
 
 
@@ -638,7 +647,7 @@ await setDoc(
 
 await addDoc(collection(db,"notifications"), {
   title: "🆕 New Player Registered",
-  body: nameInput.value.trim() + " has registered for Season-4 🏏",
+  body: nameInput.value.trim() + " has registered for Season-2 🏏",
   time: Date.now(),
   type: "player_registration"   // ✅ IMPORTANT
 });
@@ -661,13 +670,13 @@ const userName = nameInput.value.trim();
 //   userName + ", Your Registration Successfully Completed 🎉";
 
 // document.getElementById("successSubText").innerText =
-//   "Welcome to JP Boy's Cricketer's Season-4";
+//   "Welcome to CCL Season-2";
 
 document.getElementById("successTitle").innerText =
   userName + ", Your Registration Successfully Completed 🎉";
 
 document.getElementById("successSubText").innerText =
-  "Your Player ID : " + playerId + " | Welcome to JP Boy's Cricketer's Season-4";
+  "Your Player ID : " + playerId + " | Welcome to CCL Premier League Season-2";
 
 document.getElementById("successScreen").style.display = "flex";
 
@@ -691,56 +700,16 @@ setTimeout(()=>{
 </script>
 
 
-
-
-
-
-<!-- <div id="successScreen" style="
-  display:none;
-  position:fixed;
-  inset:0;
-  background:#0b1c2d;
-  color:#fff;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  z-index:2000;
-  text-align:center;
-">
-
-  <div style="font-size:60px;animation:pop 0.6s ease;">✅</div>
-  <h2 style="margin-top:20px;">Congratulations YourRegistration Successfully Completed</h2>
-  <p>Welcome to JP Boy's Cricketer's Season-4 🎉</p>
-</div> -->
-
-
-<!-- <div id="successScreen" class="success-overlay">
-
-  <div class="success-box">
-
-    <img src="assets/images/Logo.png" class="success-logo">
-
-    <h2>Congratulations Your Registration Successfully Completed 🎉</h2>
-
-    <p>Welcome to JP Boy's Cricketer's Season-4</p>
-
-    <div class="success-check">✔</div>
-
-  </div>
-
-</div> -->
-
-
 <div id="successScreen" class="success-overlay">
 
   <div class="success-box">
 
-    <img src="assets/images/Logo.png" class="success-logo">
+    <img src="assets/images/CCL Logo.jpeg" class="success-logo">
 
     <h2 id="successTitle">Registration Successful 🎉</h2>
 
     <p id="successSubText">
-      Welcome to JP Boy's Cricketer's Season-4
+      Welcome to CCL Season-2
     </p>
 
     <div class="success-check">✔</div>
@@ -750,73 +719,6 @@ setTimeout(()=>{
 </div>
 
 <script>
-// document.addEventListener("deviceready", async () => {
-
-//   const { PushNotifications } = Capacitor.Plugins;
-
-//   const perm = await PushNotifications.requestPermissions();
-
-//   if (perm.receive === 'granted') {
-//     await PushNotifications.register();
-//   }
-
-//   PushNotifications.addListener('registration', async (token) => {
-
-//     console.log("🔥 TOKEN:", token.value);
-
-//     try {
-//       await fetch("https://iid.googleapis.com/iid/v1/" + token.value + "/rel/topics/allUsers", {
-//         method: "POST",
-//         headers: {
-//           "Authorization": "key=YOUR_SERVER_KEY"
-//         }
-//       });
-
-//       console.log("✅ Subscribed to allUsers");
-
-//     } catch (e) {
-//       console.log("❌ Topic subscription failed (ignore for now)");
-//     }
-
-//   });
-
-//   PushNotifications.addListener('pushNotificationReceived', notification => {
-//     console.log("🔔 Notification:", notification);
-//   });
-
-// });
-
-
-// document.addEventListener("deviceready", async () => {
-
-//   const { PushNotifications } = Capacitor.Plugins;
-
-//   const perm = await PushNotifications.requestPermissions();
-
-//   if (perm.receive === 'granted') {
-//     await PushNotifications.register();
-//   }
-
-//   PushNotifications.addListener('registration', async (token) => {
-
-//     console.log("🔥 TOKEN:", token.value);
-
-//     // ✅ Save token
-//     localStorage.setItem("fcmToken", token.value);
-
-//     console.log("✅ Token saved successfully");
-
-//   });
-
-//   PushNotifications.addListener('pushNotificationReceived', notification => {
-//     console.log("🔔 Notification:", notification);
-//   });
-
-// });
-
-
-
-
 
 window.addEventListener("load", async () => {
 
@@ -919,8 +821,8 @@ function payGPay(){
 
 
 <script>
-const upiId = "8197901199@ybl";
-const name = "JP Boys Cricket";
+const upiId = "9880361653@ybl";
+const name = "CCL";
 const amount = "800";
 const note = "Registration Fee";
 
